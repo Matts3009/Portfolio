@@ -3,7 +3,7 @@
 This project is a single-page responsive portfolio website built as part of the HCI Lab Assignment. It showcases my personal profile, CS student background, project, skills, and contact information using semantic HTML5 and CSS (without JavaScript).
 
 ## 🚀 Live Demo
-- **GitHub Pages URL:** [Insert your live GitHub Pages link here]
+- **GitHub Pages URL:** [https://matts3009.github.io/](https://matts3009.github.io/)]
 
 ## 🎨 Design & Layout
 - **Design Tool:** Canva
