@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matthew Lie Sadeli — Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Scroll Progress Bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Live System Toast Notification -->
+    <div class="sys-toast" id="sys-toast">
+        <span class="toast-indicator"></span>
+        <span class="toast-text">[SYS_NOTIF]: Portfolio OS loaded successfully.</span>
+        <button class="toast-close" id="toast-close" aria-label="Close notification">&times;</button>
+    </div>
+
+    <header class="header">
+        <div class="brand">
+            <span class="status-dot"></span>
+            <span class="logo">MLS // PORTFOLIO</span>
+        </div>
+        <div class="header-actions">
+            <span class="sys-clock" id="sys-clock">00:00:00 WIB</span>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme" title="Switch Theme">◐</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="sys-meta">STATUS: ACTIVE &bull; BINUS INTERNATIONAL CS</div>
+                <h1>Hi, My Name is<br><span class="highlight-name">Matthew Lie Sadeli</span></h1>
+                <p class="subtitle">Computer Science Student &amp; Software Builder</p>
+                <div class="terminal-bar">
+                    <span class="prompt">&gt;</span>
+                    <span class="welcome-text" id="typed-text"></span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="photo-frame">
+                    <img src="Me.png" alt="Matthew Lie Sadeli">
+                    <div class="frame-caption">ID: BN138 // CS-01</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="about" class="section about-section reveal">
+            <div class="section-header">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-card">
+                <p class="lead-text">I’m a Computer Science student at Binus International, currently in my first year of college.</p>
+                <p class="sub-text">Just a dedicated student building practical software, exploring system architecture, and making a name for myself.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects-section reveal">
+            <div class="section-header">
+                <h2>Featured Project</h2>
+            </div>
+            <div class="project-card" role="button" tabindex="0">
+                <div class="card-top-info">
+                    <span class="system-tag">BUILD // BETA v0.9</span>
+                    <span class="click-hint">[ CLICK TO EXPAND ]</span>
+                </div>
+                <h3>Project P.A.I.N</h3>
+                <p>I’m working on a project about making my own Personal Artificial Intelligence Network (P.A.I.N for short). It is currently in beta testing and active development.</p>
+                
+                <div class="extra-details">
+                    <div class="divider"></div>
+                    <!-- Added Tab Switcher inside expanded card -->
+                    <div class="project-tabs">
+                        <button class="tab-btn active" data-tab="arch">ARCHITECTURE</button>
+                        <button class="tab-btn" data-tab="devlog">DEV LOG</button>
+                    </div>
+                    <div class="tab-content active" id="arch-content">
+                        <p><strong>Core Architecture:</strong> Modular Python CLI engine with custom text animations, input validation, and branching logic.</p>
+                    </div>
+                    <div class="tab-content" id="devlog-content" style="display: none;">
+                        <p><strong>Development Log:</strong> Optimizing execution speed, integrating dynamic prompt sequences, and refining exception handling workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section skills-section reveal">
+            <div class="section-header">
+                <h2>Technical Skills</h2>
+            </div>
+            <div class="skills-container">
+                <button class="skill-badge" data-info="Semantic page architecture, accessible forms, and clean DOM structuring.">HTML</button>
+                <button class="skill-badge" data-info="CLI application development, algorithmic problem solving, and modular scripting.">PYTHON</button>
+                <button class="skill-badge" data-info="Responsive Flexbox/Grid layouts, custom variables, and keyframe animations.">CSS</button>
+            </div>
+            <div class="skill-readout" id="skill-readout">
+                <span class="mono-label">MODULE INSPECTOR:</span> Select a skill above to view proficiency notes.
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section reveal">
+            <div class="section-header">
+                <h2>Contact</h2>
+            </div>
+            <div class="contact-card">
+                <div class="contact-row">
+                    <span class="contact-label">BUSINESS NUMBER</span>
+                    <div class="contact-action">
+                        <a href="tel:+62123456789">+62 123 456 789</a>
+                        <button class="copy-btn" data-copy="+62123456789" title="Copy Number">COPY</button>
+                    </div>
+                </div>
+                <div class="contact-divider"></div>
+                <div class="contact-row">
+                    <span class="contact-label">COLLEGE EMAIL</span>
+                    <div class="contact-action">
+                        <a href="mailto:matthew.sadeli@binus.ac.id">matthew.sadeli@binus.ac.id</a>
+                        <button class="copy-btn" data-copy="matthew.sadeli@binus.ac.id" title="Copy Email">COPY</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Bottom Navigation Dock (Fixed position, color change only) -->
+    <nav class="floating-dock">
+        <a href="#about" class="dock-item" data-target="about" title="About">
+            <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span class="dock-tooltip">About</span>
+        </a>
+        <a href="#projects" class="dock-item" data-target="projects" title="Projects">
+            <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span class="dock-tooltip">Projects</span>
+        </a>
+        <a href="#skills" class="dock-item" data-target="skills" title="Skills">
+            <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span class="dock-tooltip">Skills</span>
+        </a>
+        <a href="#contact" class="dock-item" data-target="contact" title="Contact">
+            <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span class="dock-tooltip">Contact</span>
+        </a>
+    </nav>
+
+    <footer class="footer">
+        <p>&copy; 2026 Matthew Lie Sadeli &mdash; Built for HCI Lab Assignment</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

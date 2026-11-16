@@ -1,0 +1,719 @@
+/* ==========================================
+   1. DESIGN TOKENS
+   ========================================== */
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-accent-soft: #A7CCED;
+    --navy-primary: #304D6D;
+    --slate-header: #82A0BC;
+    --sky-accent: #63ADF2;
+    --shadow-slate: #545E75;
+    --text-main: #1e293b;
+    --text-muted: #475569;
+    --border-subtle: rgba(48, 77, 109, 0.2);
+}
+
+body.dark-mode {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-accent-soft: #1e293b;
+    --navy-primary: #0b1120;
+    --slate-header: #162032;
+    --sky-accent: #63ADF2;
+    --shadow-slate: #020617;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-subtle: rgba(167, 204, 237, 0.2);
+}
+
+/* ==========================================
+   2. BASE & TYPOGRAPHY
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Georgia, serif;
+    color: var(--text-main);
+    background-color: var(--bg-main);
+    line-height: 1.65;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-bottom: 90px;
+}
+
+.sys-meta, .frame-caption, .system-tag, .click-hint, .spec-label, .mono-label, .contact-label, .sys-clock, .copy-btn, .sys-toast, .tab-btn {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+}
+
+/* ==========================================
+   3. SYSTEM TOAST NOTIFICATION & PROGRESS
+   ========================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--sky-accent), #4ade80);
+    z-index: 200;
+    transition: width 0.1s linear;
+}
+
+.sys-toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1500;
+    background: var(--navy-primary);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(167, 204, 237, 0.3);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: toastIn 0.5s ease forwards 0.8s;
+}
+
+.sys-toast.dismissed {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+@keyframes toastIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.toast-indicator {
+    width: 7px;
+    height: 7px;
+    background-color: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-left: 6px;
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* ==========================================
+   4. HEADER
+   ========================================== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--slate-header);
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 8%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background-color: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #4ade80;
+}
+
+.header .logo {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.15rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sys-clock {
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.18);
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.theme-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: scale(1.05);
+}
+
+/* ==========================================
+   5. FLOATING BOTTOM CIRCULAR DOCK (STATIONARY - COLOR CHANGE ONLY)
+   ========================================== */
+.floating-dock {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+    background: rgba(130, 160, 188, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 10px 18px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .floating-dock {
+    background: rgba(30, 41, 59, 0.55);
+    border-color: rgba(167, 204, 237, 0.25);
+}
+
+.dock-item {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy-primary);
+    text-decoration: none;
+    /* Removed transform from transition so buttons do not move/float up */
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.dark-mode .dock-item {
+    background: rgba(15, 23, 42, 0.6);
+    color: var(--sky-accent);
+    border-color: rgba(99, 173, 242, 0.3);
+}
+
+.dock-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Color change only on hover and active state without movement */
+.dock-item:hover, .dock-item.active-section {
+    background: var(--sky-accent);
+    color: #ffffff;
+    border-color: var(--sky-accent);
+    box-shadow: 0 4px 12px rgba(99, 173, 242, 0.35);
+}
+
+.dock-tooltip {
+    position: absolute;
+    bottom: 58px;
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: var(--navy-primary);
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.dock-item:hover .dock-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================
+   6. HERO SECTION
+   ========================================== */
+.hero {
+    background-color: var(--navy-primary);
+    color: #ffffff;
+    padding: 85px 8%;
+    border-bottom: 4px solid var(--sky-accent);
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1050px;
+    margin: 0 auto;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.sys-meta {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: #A7CCED;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 5px 12px;
+    border-radius: 4px;
+    border-left: 3px solid var(--sky-accent);
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.highlight-name {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.hero .subtitle {
+    font-size: 1.35rem;
+    color: #cbd5e1;
+    margin-bottom: 28px;
+}
+
+.terminal-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(167, 204, 237, 0.3);
+    padding: 12px 20px;
+    border-radius: 8px;
+    min-width: 320px;
+}
+
+.prompt {
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--sky-accent);
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.hero .welcome-text {
+    font-size: 1.45rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#typed-text::after {
+    content: "_";
+    animation: blink 0.85s infinite;
+    color: var(--sky-accent);
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.photo-frame {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(167, 204, 237, 0.35);
+    padding: 12px;
+    border-radius: 16px;
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
+}
+
+.hero-image img {
+    display: block;
+    width: 220px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.frame-caption {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #A7CCED;
+    margin-top: 10px;
+}
+
+/* ==========================================
+   7. SECTIONS & CARDS (WITH PROJECT TABS)
+   ========================================== */
+.section {
+    padding: 70px 8%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-header h2 {
+    font-size: 2.3rem;
+    color: var(--text-main);
+}
+
+.about-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 5px solid var(--sky-accent);
+    border-radius: 16px;
+    padding: 35px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: left;
+    box-shadow: 0 8px 24px rgba(48, 77, 109, 0.08);
+}
+
+.about-card .lead-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.about-card .sub-text {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.project-card {
+    background-color: var(--bg-accent-soft);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 35px 40px;
+    text-align: left;
+    box-shadow: 6px 6px 0px var(--shadow-slate);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 8px 9px 0px var(--shadow-slate);
+}
+
+.card-top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    color: var(--navy-primary);
+    font-weight: bold;
+}
+
+body.dark-mode .card-top-info {
+    color: var(--sky-accent);
+}
+
+.project-card h3 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.project-card p {
+    font-size: 1.2rem;
+    line-height: 1.65;
+}
+
+.extra-details {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 20px 0;
+}
+
+/* Project Tabs */
+.project-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tab-btn {
+    background: rgba(48, 77, 109, 0.12);
+    border: 1px solid var(--border-subtle);
+    color: var(--navy-primary);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+body.dark-mode .tab-btn {
+    background: rgba(99, 173, 242, 0.12);
+    color: var(--sky-accent);
+}
+
+.tab-btn.active {
+    background: var(--navy-primary);
+    color: #ffffff;
+    border-color: var(--navy-primary);
+}
+
+body.dark-mode .tab-btn.active {
+    background: var(--sky-accent);
+    color: #0b1120;
+    border-color: var(--sky-accent);
+}
+
+.project-card.enlarged {
+    transform: scale(1.02);
+}
+
+.project-card.enlarged .extra-details {
+    max-height: 250px;
+    opacity: 1;
+    margin-top: 15px;
+}
+
+/* ==========================================
+   8. INTERACTIVE SKILLS & MODULE INSPECTOR
+   ========================================== */
+.skills-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.skill-badge {
+    font-family: 'Times New Roman', Georgia, serif;
+    background-color: var(--sky-accent);
+    color: #ffffff;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 16px 40px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0px var(--slate-header);
+    min-width: 165px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-badge:hover {
+    transform: translateY(-3px);
+    background-color: #4a9be8;
+}
+
+.skill-badge.selected {
+    background-color: var(--navy-primary);
+    box-shadow: 4px 4px 0px var(--sky-accent);
+}
+
+.skill-readout {
+    max-width: 620px;
+    margin: 0 auto;
+    background-color: var(--bg-card);
+    border: 1px dashed var(--border-subtle);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+}
+
+.mono-label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--navy-primary);
+    margin-right: 6px;
+}
+
+body.dark-mode .mono-label {
+    color: var(--sky-accent);
+}
+
+/* ==========================================
+   9. CONTACT & FOOTER
+   ========================================== */
+.contact-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 28px 36px;
+    box-shadow: 5px 5px 0px var(--shadow-slate);
+}
+
+.contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.contact-label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.contact-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.contact-card a {
+    font-size: 1.2rem;
+    color: var(--navy-primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+body.dark-mode .contact-card a {
+    color: var(--sky-accent);
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+.copy-btn {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background-color: var(--sky-accent);
+    color: #ffffff;
+    border-color: var(--sky-accent);
+}
+
+.copy-btn.copied {
+    background-color: #16a34a;
+    color: #ffffff;
+    border-color: #16a34a;
+}
+
+.contact-divider {
+    height: 1px;
+    background-color: var(--border-subtle);
+    margin: 6px 0;
+}
+
+.footer {
+    background-color: var(--slate-header);
+    color: #ffffff;
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+/* ==========================================
+   10. SCROLL REVEAL & RESPONSIVE
+   ========================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .terminal-bar {
+        min-width: auto;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .specs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sys-clock, .sys-toast {
+        display: none;
+    }
+}
